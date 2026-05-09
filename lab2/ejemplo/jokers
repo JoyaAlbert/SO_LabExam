@@ -1,0 +1,6 @@
+* all
+? un caracter
+[abc] q los contenga
+[!abc] q los excluya
+
+no comodin {123} genera cadenas de caracteres con la sintaxis

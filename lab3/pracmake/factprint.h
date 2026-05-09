@@ -1,0 +1,1 @@
+void factprint( int n);

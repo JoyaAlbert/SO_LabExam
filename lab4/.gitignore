@@ -1,0 +1,22 @@
+# Build artifacts
+*.o
+
+# Executables generated in labs
+intro/prueba
+intro/prueba2
+ejemplos/ejemplo1
+ejemplos/ejemplo1bis
+ejemplos/ejemplo2
+ejemplos/ejemplo3
+ejemplos/ejemplo4
+ejemplos/ejemplo4b
+ejemplos/ejemplo5
+ejemplos/ejemplo6
+ejemplos/ejemplo6b
+race/race
+
+# Local test files
+intro/testrw.txt
+intro/testronly.txt
+intro/soy
+intro/SoyNuevo

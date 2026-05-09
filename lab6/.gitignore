@@ -1,0 +1,19 @@
+# Build artifacts
+*.o
+*.out
+
+# Editors
+.vscode/
+
+# Executables for lab6 examples
+ejemplos/ejemplo1
+ejemplos/ejemplo2
+ejemplos/ejemplo3
+ejemplos/ejemplo4
+
+# Executables for lab6 integrate
+integrate/test
+integrate/picalc_1
+integrate/picalc_2
+integrate/picalc_mt_1
+integrate/picalc_mt_2

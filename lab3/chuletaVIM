@@ -1,0 +1,31 @@
+i → Insertar antes del cursor.
+a → Insertar después del cursor.
+o → Nueva línea debajo e insertar.
+Esc → Volver a modo normal.
+
+dd → Borrar línea.
+yy → Copiar línea.
+p → Pegar.
+u → Deshacer.
+Ctrl + r → Rehacer.
+dw → Borrar palabra.
+d$ → Borrar hasta final de línea.
+
+:w → Guardar.
+:q → Salir.
+:wq → Guardar y salir.
+:q! → Salir sin guardar.
+
+/texto → Buscar.
+n → Siguiente resultado.
+:%s/a/b/g → Reemplazar en todo el archivo.
+
+gg → Ir al inicio.
+G → Ir al final.
+:set number → Mostrar números de línea.
+
+:vsp archivo.c → Abrir archivo en split vertical.
+:sp archivo.c → Abrir archivo en split horizontal.
+Ctrl + w + w → Cambiar entre ventanas.
+Ctrl + w + h/j/k/l → Moverse entre splits (izq/abajo/arriba/dcha).
+:q → Cierra solo el split actual.

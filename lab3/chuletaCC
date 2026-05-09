@@ -1,0 +1,13 @@
+-E → Solo ejecuta el preprocesador (expande #include y #define, no compila).
+-c → Compila y genera archivo .o, no enlaza.
+-S → Genera código ensamblador .s, no crea .o.
+-o archivo → Define el nombre del archivo de salida.
+-I ruta → Añade un directorio donde buscar headers.
+-DNAME → Define una macro (como #define NAME).
+-UNAME → Elimina una macro definida.
+-Wall → Activa warnings comunes.
+-Wextra → Activa warnings adicionales.
+-Werror → Convierte warnings en errores.
+-g → Añade información para debug (gdb).
+-O0/-O2/-O3 → Nivel de optimización.
+-std=c99 → Define el estándar del lenguaje C.
