@@ -1,0 +1,1386 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Portal Examen SO</title>
+    <style>
+:root {
+    --bg: #f3ede1;
+    --bg-panel: rgba(255, 252, 247, 0.88);
+    --bg-panel-strong: #fffaf1;
+    --ink: #1c1a17;
+    --muted: #625a4e;
+    --line: rgba(51, 43, 31, 0.12);
+    --accent: #a43d2d;
+    --accent-soft: #f4d4b5;
+    --accent-2: #204d40;
+    --good: #1f6d3b;
+    --bad: #9e2e2e;
+    --shadow: 0 16px 40px rgba(46, 33, 12, 0.12);
+    --radius-xl: 28px;
+    --radius-lg: 22px;
+    --radius-md: 16px;
+    --radius-sm: 12px;
+    --mono: "Iosevka", "IBM Plex Mono", "Fira Code", monospace;
+    --sans: "Segoe UI", "Avenir Next", "Helvetica Neue", sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: var(--sans);
+    color: var(--ink);
+    background:
+        radial-gradient(circle at top left, rgba(164, 61, 45, 0.16), transparent 32%),
+        radial-gradient(circle at 85% 10%, rgba(32, 77, 64, 0.18), transparent 30%),
+        linear-gradient(180deg, #efe5d2 0%, #f7f1e6 30%, #f3ede1 100%);
+}
+
+a {
+    color: inherit;
+}
+
+code,
+pre {
+    font-family: var(--mono);
+}
+
+.page-shell {
+    display: grid;
+    grid-template-columns: 310px 1fr;
+    min-height: 100vh;
+}
+
+.sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding: 30px 24px;
+    border-right: 1px solid var(--line);
+    background: rgba(255, 248, 239, 0.78);
+    backdrop-filter: blur(20px);
+}
+
+.eyebrow {
+    margin: 0 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 0.72rem;
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.brand h1 {
+    margin: 0;
+    font-size: 2rem;
+    line-height: 0.98;
+}
+
+.sidebar-copy {
+    margin: 14px 0 0;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+.side-nav {
+    display: grid;
+    gap: 10px;
+    margin-top: 34px;
+}
+
+.side-nav a {
+    text-decoration: none;
+    padding: 12px 14px;
+    border-radius: 999px;
+    font-weight: 600;
+    color: var(--muted);
+    transition: 180ms ease;
+}
+
+.side-nav a:hover,
+.side-nav a:focus {
+    color: var(--ink);
+    background: rgba(164, 61, 45, 0.08);
+}
+
+.study-meter {
+    margin-top: 34px;
+    padding: 20px;
+    border-radius: var(--radius-lg);
+    background: var(--bg-panel-strong);
+    box-shadow: var(--shadow);
+}
+
+.meter-label,
+.meter-value {
+    margin: 0;
+}
+
+.meter-label {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.meter-track {
+    height: 12px;
+    margin: 14px 0 12px;
+    border-radius: 999px;
+    background: rgba(28, 26, 23, 0.08);
+    overflow: hidden;
+}
+
+.meter-fill {
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #de8f42);
+    transition: width 180ms ease;
+}
+
+.content {
+    padding: 34px;
+}
+
+.hero,
+.section-block,
+.quick-card,
+.status-chip,
+.quiz-card,
+.accordion-item,
+.prompt-card,
+.lab-card,
+.comparison-card,
+.stat-card {
+    background: var(--bg-panel);
+    border: 1px solid rgba(73, 57, 35, 0.08);
+    box-shadow: var(--shadow);
+}
+
+.hero {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 28px;
+    padding: 34px;
+    border-radius: var(--radius-xl);
+}
+
+.hero h2 {
+    margin: 0 0 16px;
+    font-size: clamp(2.2rem, 5vw, 4.2rem);
+    line-height: 0.94;
+    max-width: 12ch;
+}
+
+.hero p {
+    margin: 0;
+    max-width: 62ch;
+    line-height: 1.7;
+    color: var(--muted);
+}
+
+.hero-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.stat-card {
+    display: grid;
+    align-content: end;
+    min-height: 150px;
+    padding: 22px;
+    border-radius: var(--radius-lg);
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(247, 237, 219, 0.98)),
+        linear-gradient(120deg, rgba(164, 61, 45, 0.16), transparent 55%);
+}
+
+.stat-value {
+    font-size: 2.3rem;
+    font-weight: 800;
+}
+
+.stat-label {
+    margin-top: 6px;
+    color: var(--muted);
+}
+
+.section-block {
+    margin-top: 28px;
+    padding: 28px;
+    border-radius: var(--radius-xl);
+}
+
+.quick-links {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    background: transparent;
+    box-shadow: none;
+    border: 0;
+    padding: 0;
+}
+
+.quick-card {
+    border-radius: var(--radius-lg);
+    padding: 22px;
+}
+
+.quick-card h3,
+.prompt-card h3,
+.lab-card h3,
+.comparison-card h3 {
+    margin: 0 0 10px;
+}
+
+.quick-card p,
+.prompt-card p,
+.lab-card p,
+.comparison-card p {
+    margin: 0;
+    line-height: 1.6;
+    color: var(--muted);
+}
+
+.section-heading {
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 24px;
+}
+
+.section-heading h2 {
+    margin: 0;
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.section-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: end;
+}
+
+.select-wrap {
+    display: grid;
+    gap: 6px;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.select-wrap select {
+    min-width: 180px;
+}
+
+select,
+button {
+    font: inherit;
+}
+
+select,
+.ghost-button,
+.primary-button {
+    border-radius: 999px;
+    padding: 12px 16px;
+    border: 1px solid rgba(73, 57, 35, 0.15);
+}
+
+.ghost-button {
+    background: #fff8ef;
+}
+
+.primary-button {
+    background: var(--accent);
+    color: #fff;
+    border-color: transparent;
+}
+
+.quiz-status {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.status-chip {
+    padding: 14px 16px;
+    border-radius: var(--radius-md);
+    min-width: 180px;
+}
+
+.chip-label {
+    display: block;
+    color: var(--muted);
+    font-size: 0.88rem;
+    margin-bottom: 4px;
+}
+
+.result-banner {
+    margin-bottom: 18px;
+    padding: 18px 20px;
+    border-radius: var(--radius-md);
+    background: rgba(32, 77, 64, 0.08);
+    border: 1px solid rgba(32, 77, 64, 0.14);
+}
+
+.result-banner.bad {
+    background: rgba(158, 46, 46, 0.08);
+    border-color: rgba(158, 46, 46, 0.16);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.quiz-list {
+    display: grid;
+    gap: 18px;
+}
+
+.quiz-card {
+    border-radius: var(--radius-lg);
+    padding: 22px;
+}
+
+.quiz-card.correct {
+    border-color: rgba(31, 109, 59, 0.36);
+}
+
+.quiz-card.incorrect {
+    border-color: rgba(158, 46, 46, 0.36);
+}
+
+.quiz-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(164, 61, 45, 0.08);
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.tag.alt {
+    background: rgba(32, 77, 64, 0.08);
+    color: var(--accent-2);
+}
+
+.quiz-card h3 {
+    margin: 0 0 18px;
+    font-size: 1.1rem;
+    line-height: 1.45;
+}
+
+.option-list {
+    display: grid;
+    gap: 12px;
+}
+
+.option-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    align-items: start;
+    padding: 14px 15px;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(73, 57, 35, 0.12);
+    background: rgba(255, 251, 244, 0.95);
+}
+
+.option-item.correct-option {
+    border-color: rgba(31, 109, 59, 0.4);
+    background: rgba(31, 109, 59, 0.08);
+}
+
+.option-item.wrong-option {
+    border-color: rgba(158, 46, 46, 0.4);
+    background: rgba(158, 46, 46, 0.08);
+}
+
+.explanation {
+    margin-top: 16px;
+    padding: 14px 16px;
+    border-left: 4px solid var(--accent-2);
+    background: rgba(32, 77, 64, 0.05);
+    color: var(--muted);
+    line-height: 1.6;
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.accordion-grid,
+.cards-grid,
+.lab-guide {
+    display: grid;
+    gap: 18px;
+}
+
+.accordion-item {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.accordion-header {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 22px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.accordion-header h3 {
+    margin: 0;
+}
+
+.accordion-header span {
+    color: var(--muted);
+}
+
+.accordion-content {
+    padding: 0 22px 22px;
+}
+
+.accordion-content p,
+.accordion-content li {
+    line-height: 1.65;
+    color: var(--muted);
+}
+
+.accordion-content ul {
+    margin: 12px 0 0;
+    padding-left: 18px;
+}
+
+.accordion-content pre {
+    margin: 18px 0 0;
+    padding: 18px;
+    overflow: auto;
+    border-radius: var(--radius-md);
+    background: #1f1d1a;
+    color: #f8f1de;
+}
+
+.cards-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.prompt-card,
+.comparison-card {
+    border-radius: var(--radius-lg);
+    padding: 22px;
+}
+
+.prompt-card footer {
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
+.lab-guide {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.lab-card {
+    border-radius: var(--radius-lg);
+    padding: 22px;
+}
+
+.lab-card ul {
+    margin: 14px 0 0;
+    padding-left: 18px;
+}
+
+.lab-card li {
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.lab-card .lab-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+@media (max-width: 1100px) {
+    .page-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .hero,
+    .quick-links,
+    .cards-grid,
+    .lab-guide {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 720px) {
+    .content {
+        padding: 18px;
+    }
+
+    .section-block,
+    .hero {
+        padding: 20px;
+    }
+
+    .section-heading {
+        align-items: start;
+        flex-direction: column;
+    }
+
+    .hero h2 {
+        max-width: none;
+    }
+}
+
+</style>
+</head>
+<body>
+    <div class="page-shell">
+        <aside class="sidebar">
+            <div class="brand">
+                <p class="eyebrow">Sistemas Operativos</p>
+                <h1>Portal de Examen</h1>
+                <p class="sidebar-copy">Repaso concentrado de los 12 labs con práctica, patrones y enunciados de papel.</p>
+            </div>
+
+            <nav class="side-nav">
+                <a href="#hero">Inicio</a>
+                <a href="#quiz">Tipo Test</a>
+                <a href="#skeletons">Esqueletos</a>
+                <a href="#prompts">Enunciados</a>
+                <a href="#labs">Guía por Lab</a>
+                <a href="#rapid-review">Repaso Rápido</a>
+            </nav>
+
+            <div class="study-meter">
+                <p class="meter-label">Progreso del test</p>
+                <div class="meter-track" aria-hidden="true">
+                    <div class="meter-fill" id="progress-fill"></div>
+                </div>
+                <p class="meter-value"><span id="progress-text">0</span> preguntas respondidas</p>
+            </div>
+        </aside>
+
+        <main class="content">
+            <section class="hero" id="hero">
+                <div class="hero-copy">
+                    <p class="eyebrow">Material principal</p>
+                    <h2>Entrena para el formato más arcaico posible</h2>
+                    <p>
+                        Este portal concentra preguntas autocorregibles, esqueletos memorizables, enunciados probables y una guía de estudio por laboratorio.
+                        Está pensado para examen en papel: patrones canónicos, precisión y cero adornos inútiles.
+                    </p>
+                </div>
+
+                <div class="hero-stats">
+                    <article class="stat-card">
+                        <span class="stat-value" id="hero-questions">66</span>
+                        <span class="stat-label">preguntas tipo test</span>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-value" id="hero-skeletons">11</span>
+                        <span class="stat-label">esqueletos clave</span>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-value" id="hero-prompts">24</span>
+                        <span class="stat-label">enunciados probables</span>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-value">12</span>
+                        <span class="stat-label">guías por lab</span>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section-block quick-links">
+                <article class="quick-card">
+                    <h3>Empezar por lo duro</h3>
+                    <p>Labs 4-12 concentran procesos, concurrencia, IPC y memoria compartida. Ahí está el mayor retorno.</p>
+                </article>
+                <article class="quick-card">
+                    <h3>Modo examen en papel</h3>
+                    <p>Prioriza orden de llamadas, firmas exactas y errores típicos. Lo conceptual sin patrón escrito no basta.</p>
+                </article>
+                <article class="quick-card">
+                    <h3>Uso recomendado</h3>
+                    <p>1. Guía por lab. 2. Esqueletos. 3. Test. 4. Enunciados. 5. Repetición de zonas flojas.</p>
+                </article>
+            </section>
+
+            <section class="section-block" id="quiz">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">Bloque 1</p>
+                        <h2>Batería de Preguntas Tipo Test</h2>
+                    </div>
+                    <div class="section-actions">
+                        <label class="select-wrap">
+                            <span>Filtrar</span>
+                            <select id="quiz-filter">
+                                <option value="all">Todos los labs</option>
+                            </select>
+                        </label>
+                        <button class="ghost-button" id="reset-quiz" type="button">Reiniciar test</button>
+                        <button class="primary-button" id="submit-quiz" type="button">Corregir test</button>
+                    </div>
+                </div>
+
+                <div class="quiz-status">
+                    <div class="status-chip">
+                        <span class="chip-label">Respondidas</span>
+                        <strong id="answered-count">0 / 66</strong>
+                    </div>
+                    <div class="status-chip">
+                        <span class="chip-label">Resultado</span>
+                        <strong id="score-count">Pendiente</strong>
+                    </div>
+                    <div class="status-chip">
+                        <span class="chip-label">Modo</span>
+                        <strong>Autocorregible</strong>
+                    </div>
+                </div>
+
+                <div id="quiz-results" class="result-banner hidden" aria-live="polite"></div>
+                <div id="quiz-list" class="quiz-list"></div>
+            </section>
+
+            <section class="section-block" id="skeletons">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">Bloque 2</p>
+                        <h2>Esqueletos que debes poder escribir sin pensar</h2>
+                    </div>
+                </div>
+                <div id="skeleton-grid" class="accordion-grid"></div>
+            </section>
+
+            <section class="section-block" id="prompts">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">Bloque 3</p>
+                        <h2>Enunciados Probables de Examen</h2>
+                    </div>
+                </div>
+                <div id="prompt-grid" class="cards-grid"></div>
+            </section>
+
+            <section class="section-block" id="labs">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">Bloque 4</p>
+                        <h2>Guía de Estudio de Cada Lab</h2>
+                    </div>
+                </div>
+                <div id="lab-guide" class="lab-guide"></div>
+            </section>
+
+            <section class="section-block" id="rapid-review">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">Cierre</p>
+                        <h2>Repaso Rápido</h2>
+                    </div>
+                </div>
+                <div id="comparison-grid" class="cards-grid"></div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+const quizQuestions = [
+  { id: "L1Q1", lab: "Lab 1", topic: "Compilación", question: "¿Qué hace `cc hello.c -o hello`?", options: ["Ejecuta `hello.c`", "Compila y genera un ejecutable llamado `hello`", "Solo comprueba sintaxis y no genera binario", "Convierte el programa a ensamblador y se detiene"], answer: 1, explanation: "La opción `-o` fija el nombre del ejecutable generado tras compilar y enlazar." },
+  { id: "L1Q2", lab: "Lab 1", topic: "Ejecución", question: "¿Por qué normalmente se ejecuta un binario local con `./hello`?", options: ["Porque `hello` solo funciona si está en `/bin`", "Porque el directorio actual no suele estar en `PATH`", "Porque `./` activa permisos de ejecución", "Porque `cc` genera binarios ocultos"], answer: 1, explanation: "El shell no busca por defecto en el directorio actual; `./` indica la ruta relativa al binario." },
+  { id: "L1Q3", lab: "Lab 1", topic: "C básico", question: "¿Qué elemento define el punto de entrada normal de un programa en C?", options: ["`start()`", "`main()`", "`entry()`", "`init()`"], answer: 1, explanation: "En C, el punto de entrada del programa de usuario es `main()`." },
+  { id: "L1Q4", lab: "Lab 1", topic: "Flujo", question: "¿Qué diferencia esencial hay entre código fuente y ejecutable?", options: ["El fuente no puede contener funciones", "El ejecutable ya está traducido a código máquina utilizable por el sistema", "El ejecutable todavía necesita el preprocesador para correr", "No hay diferencia real si el sistema es Linux"], answer: 1, explanation: "El fuente es texto; el ejecutable es el resultado traducido y enlazado para ejecución." },
+
+  { id: "L2Q1", lab: "Lab 2", topic: "Shell", question: "¿Qué comando muestra el directorio de trabajo actual?", options: ["`ls`", "`pwd`", "`where`", "`showdir`"], answer: 1, explanation: "`pwd` imprime la ruta del directorio actual." },
+  { id: "L2Q2", lab: "Lab 2", topic: "Redirecciones", question: "¿Qué hace `>>` en shell?", options: ["Sobrescribe siempre el archivo", "Añade salida al final del archivo", "Duplica el descriptor 2", "Concatena dos comandos"], answer: 1, explanation: "`>>` redirige añadiendo al final; `>` sobrescribe." },
+  { id: "L2Q3", lab: "Lab 2", topic: "Filtros", question: "¿Qué cuenta `grep -c \"hobbit\" fichero.txt`?", options: ["Las ocurrencias exactas de la palabra en todo el fichero", "Las líneas que contienen el patrón", "Los caracteres de la palabra", "El número de ficheros que contienen el patrón"], answer: 1, explanation: "`grep -c` cuenta líneas coincidentes, no apariciones individuales." },
+  { id: "L2Q4", lab: "Lab 2", topic: "uniq", question: "¿Qué condición necesita `uniq` para eliminar duplicados correctamente?", options: ["Que el archivo sea binario", "Que las líneas duplicadas sean consecutivas", "Que se use junto con `grep`", "Que el archivo tenga permiso 644"], answer: 1, explanation: "`uniq` solo elimina duplicados consecutivos; a menudo se usa tras `sort`." },
+
+  { id: "L3Q1", lab: "Lab 3", topic: "Make", question: "¿Qué ventaja principal ofrece `make`?", options: ["Convierte cualquier lenguaje a C", "Recompila solo lo necesario según dependencias", "Sustituye a `gdb` para depuración", "Evita usar compilador"], answer: 1, explanation: "`make` automatiza la compilación y decide qué objetivos deben reconstruirse." },
+  { id: "L3Q2", lab: "Lab 3", topic: "GDB", question: "¿Qué comando de `gdb` fija los argumentos antes de ejecutar el programa?", options: ["`set argv`", "`args`", "`set args`", "`run args`"], answer: 2, explanation: "En `gdb`, `set args ...` prepara los argumentos para `run` o `start`." },
+  { id: "L3Q3", lab: "Lab 3", topic: "Depuración", question: "¿Para qué sirve un `watchpoint` en `gdb`?", options: ["Para detenerse al entrar en cualquier función", "Para parar cuando una variable cambia", "Para compilar con símbolos", "Para ver el contenido de una pila"], answer: 1, explanation: "Un watchpoint vigila una expresión o variable y detiene la ejecución al cambiar." },
+  { id: "L3Q4", lab: "Lab 3", topic: "Overflow", question: "Si Fibonacci empieza a mostrar números negativos con `int`, la explicación típica es:", options: ["`printf` imprime mal enteros grandes", "Hay overflow de enteros con signo", "El compilador ignora la suma", "El bucle `while` invierte el signo"], answer: 1, explanation: "El desbordamiento de `int` rompe la representación correcta de la secuencia." },
+
+  { id: "L4Q1", lab: "Lab 4", topic: "fork", question: "¿Qué devuelve `fork()` en el hijo?", options: ["El PID del padre", "0", "-1", "1"], answer: 1, explanation: "Tras `fork`, el hijo recibe 0; el padre recibe el PID del hijo." },
+  { id: "L4Q2", lab: "Lab 4", topic: "fork", question: "¿Qué devuelve `fork()` en el padre si todo va bien?", options: ["0", "El PID del hijo", "El PID del padre", "El estado de salida del hijo"], answer: 1, explanation: "El valor devuelto al padre identifica al hijo recién creado." },
+  { id: "L4Q3", lab: "Lab 4", topic: "execve", question: "¿Qué hace `execve` correctamente usado en un hijo?", options: ["Crea un nuevo proceso manteniendo el viejo", "Sustituye la imagen del proceso por otro programa", "Espera a que termine el padre", "Clona la memoria del padre"], answer: 1, explanation: "`execve` reemplaza el programa actual; no crea un proceso nuevo por sí mismo." },
+  { id: "L4Q4", lab: "Lab 4", topic: "wait", question: "¿Para qué se usa `wait(&status)` en el padre?", options: ["Para lanzar el hijo", "Para recoger la terminación de un hijo", "Para bloquear el hijo hasta que el padre termine", "Para reiniciar el proceso"], answer: 1, explanation: "`wait` bloquea al padre hasta que termina un hijo y devuelve su estado." },
+  { id: "L4Q5", lab: "Lab 4", topic: "Status", question: "¿Qué comprueba `WIFEXITED(status)`?", options: ["Que el proceso creó al menos un hijo", "Que el hijo terminó normalmente con `exit` o `return`", "Que el hijo hizo `execve`", "Que el proceso murió por señal"], answer: 1, explanation: "La macro detecta terminación normal." },
+  { id: "L4Q6", lab: "Lab 4", topic: "Memoria", question: "Tras `fork`, una variable global normal queda:", options: ["Compartida automáticamente entre padre e hijo", "Duplicada en espacios de memoria distintos", "Convertida en memoria compartida", "Eliminada del hijo"], answer: 1, explanation: "Padre e hijo continúan con copias separadas de su espacio de direcciones." },
+
+  { id: "L5Q1", lab: "Lab 5", topic: "Multiproceso", question: "En `foominer_mp`, el objetivo del padre es:", options: ["Calcular todos los nonces él mismo", "Coordinar hijos y terminar al resto si uno resuelve", "Compartir un único contador global con mutex", "Reemplazar su imagen con cada minero"], answer: 1, explanation: "El padre reparte trabajo, espera estados y decide si matar al resto." },
+  { id: "L5Q2", lab: "Lab 5", topic: "Rangos", question: "¿Qué error conceptual es grave al repartir nonces entre mineros?", options: ["Que cada rango sea demasiado pequeño", "Dejar huecos o solapar rangos sin querer", "Usar `atoi` en lugar de `atol`", "Escribir el rango en decimal"], answer: 1, explanation: "Huecos implican trabajo no explorado; solapes implican trabajo duplicado." },
+  { id: "L5Q3", lab: "Lab 5", topic: "execve", question: "¿Por qué el hijo usa `execve` en la versión multiproceso?", options: ["Porque no puede llamar funciones en C", "Porque se reaprovecha un programa minero independiente", "Porque `wait` exige `execve`", "Porque Linux no permite minería sin `execve`"], answer: 1, explanation: "La versión multiproceso lanza el ejecutable del minero en cada hijo." },
+  { id: "L5Q4", lab: "Lab 5", topic: "kill", question: "Si un minero encuentra solución, lo canónico es:", options: ["Dejar que todos sigan hasta el final por seguridad", "Terminar a los mineros restantes", "Cerrar el padre y dejar huérfanos", "Reiniciar todos los rangos"], answer: 1, explanation: "Una vez hallada la solución, seguir calculando solo consume tiempo y CPU." },
+  { id: "L5Q5", lab: "Lab 5", topic: "Estados", question: "¿Qué distinción interesa al padre al recoger hijos?", options: ["Solo si tienen PID par o impar", "Si acabaron con éxito, sin solución o con fallo", "Qué editor de texto usaron", "Si ejecutaron `printf`"], answer: 1, explanation: "El padre decide según el estado de terminación de cada minero." },
+  { id: "L5Q6", lab: "Lab 5", topic: "Carreras", question: "Si varios procesos escribieran el mismo archivo solución a la vez, habría riesgo de:", options: ["Overflow de enteros", "Condición de carrera sobre la salida", "Pérdida del PID del padre", "Recompilación del binario"], answer: 1, explanation: "Es una carrera sobre el recurso compartido archivo." },
+
+  { id: "L6Q1", lab: "Lab 6", topic: "Hilos", question: "¿Qué llamada crea un hilo POSIX?", options: ["`thread_create`", "`pthread_create`", "`fork_thread`", "`spawn_thread`"], answer: 1, explanation: "`pthread_create` es la API estándar usada en el lab." },
+  { id: "L6Q2", lab: "Lab 6", topic: "Join", question: "¿Para qué sirve `pthread_join`?", options: ["Para bloquear un mutex", "Para esperar a que termine un hilo", "Para iniciar el hilo con argumentos", "Para duplicar el hilo"], answer: 1, explanation: "`pthread_join` sincroniza al hilo llamador con la terminación del otro." },
+  { id: "L6Q3", lab: "Lab 6", topic: "Memoria", question: "Los hilos de un mismo proceso comparten:", options: ["Solo sus pilas", "Globales, heap y descriptores", "Nada; son como procesos", "Únicamente el contador de programa"], answer: 1, explanation: "Los hilos comparten la memoria del proceso excepto su pila y registros propios." },
+  { id: "L6Q4", lab: "Lab 6", topic: "Mutex", question: "¿Qué protege el mutex en la integración multihilo?", options: ["La creación de hilos", "La acumulación sobre el resultado compartido", "La lectura de argumentos de `main`", "El cálculo local de cada trapecio"], answer: 1, explanation: "Cada hilo puede calcular su parte sin lock, pero la suma global necesita exclusión mutua." },
+  { id: "L6Q5", lab: "Lab 6", topic: "Carrera", question: "¿Por qué `counter++` o `result += parcial` pueden romperse sin mutex?", options: ["Porque `printf` modifica la variable", "Porque no son operaciones atómicas", "Porque `for` no funciona con hilos", "Porque `join` las ejecuta dos veces"], answer: 1, explanation: "Leer, modificar y escribir pueden entrelazarse entre hilos." },
+  { id: "L6Q6", lab: "Lab 6", topic: "Compilación", question: "¿Qué flag es obligatoria en estos labs para compilar y enlazar correctamente con hilos?", options: ["`-lm`", "`-pthread`", "`-shared`", "`-O0`"], answer: 1, explanation: "`-pthread` activa lo necesario de compilación y enlace para POSIX threads." },
+
+  { id: "L7Q1", lab: "Lab 7", topic: "Señales", question: "¿Qué señal corresponde típicamente a Ctrl+C?", options: ["`SIGTERM`", "`SIGINT`", "`SIGUSR1`", "`SIGALRM`"], answer: 1, explanation: "Ctrl+C genera `SIGINT` en el proceso del terminal." },
+  { id: "L7Q2", lab: "Lab 7", topic: "alarm", question: "¿Qué hace `alarm(2)`?", options: ["Duerme el proceso 2 segundos", "Programa una señal `SIGALRM` dentro de 2 segundos", "Bloquea todas las señales durante 2 segundos", "Mata al proceso al pasar 2 segundos"], answer: 1, explanation: "`alarm` agenda un `SIGALRM` tras el número de segundos indicado." },
+  { id: "L7Q3", lab: "Lab 7", topic: "sigaction", question: "¿Qué ventaja aporta `sigaction` frente a `signal`?", options: ["No necesita `#include`", "Permite más control y opciones como `SA_SIGINFO`", "Crea procesos de manejo de señales", "Hace que las señales sean síncronas"], answer: 1, explanation: "`sigaction` es la interfaz moderna y configurable para señales." },
+  { id: "L7Q4", lab: "Lab 7", topic: "SIGUSR1", question: "En el lab, `SIGUSR1` se usa como:", options: ["Petición de estado o resultado parcial", "Señal que no puede capturarse", "Señal de overflow", "Sustituto de `wait`"], answer: 0, explanation: "`SIGUSR1` es ideal como señal de aplicación para pedir estado." },
+  { id: "L7Q5", lab: "Lab 7", topic: "Asincronía", question: "La principal dificultad de las señales es que:", options: ["Solo existen en Windows", "Llegan de forma asíncrona y pueden interrumpir en puntos delicados", "Siempre bloquean la CPU por completo", "No pueden coexistir con hilos"], answer: 1, explanation: "La ejecución se interrumpe en un punto no necesariamente cómodo o seguro." },
+  { id: "L7Q6", lab: "Lab 7", topic: "Limitaciones", question: "¿Cuál de estas señales no puede capturarse ni ignorarse?", options: ["`SIGUSR2`", "`SIGKILL`", "`SIGALRM`", "`SIGINT`"], answer: 1, explanation: "`SIGKILL` siempre termina el proceso; no admite handler." },
+
+  { id: "L8Q1", lab: "Lab 8", topic: "shm_open", question: "¿Qué llamada crea o abre un objeto de memoria compartida POSIX?", options: ["`mem_open`", "`shm_open`", "`share_open`", "`mmap_open`"], answer: 1, explanation: "`shm_open` es la primitiva POSIX usada en el lab." },
+  { id: "L8Q2", lab: "Lab 8", topic: "ftruncate", question: "¿Para qué se usa `ftruncate` justo después de `shm_open`?", options: ["Para cambiar permisos", "Para fijar el tamaño del objeto compartido", "Para leer la estructura", "Para sincronizar semáforos"], answer: 1, explanation: "Sin tamaño adecuado, el mapeo no cubriría la estructura esperada." },
+  { id: "L8Q3", lab: "Lab 8", topic: "mmap", question: "¿Qué combinación permite que los cambios sean visibles entre procesos?", options: ["`MAP_PRIVATE` con `PROT_READ`", "`MAP_SHARED` con permisos adecuados", "`MAP_STACK` con `PROT_EXEC`", "`MAP_ANON` con `PROT_NONE`"], answer: 1, explanation: "`MAP_SHARED` propaga modificaciones al objeto compartido." },
+  { id: "L8Q4", lab: "Lab 8", topic: "Semáforos", question: "En `sem_init(&sem, 1, valor)`, el `1` indica que el semáforo:", options: ["Empieza bloqueado", "Es compartido entre procesos", "Solo admite un proceso", "Debe inicializarse dos veces"], answer: 1, explanation: "Con `pshared = 1`, el semáforo puede ser usado por procesos distintos." },
+  { id: "L8Q5", lab: "Lab 8", topic: "tickets", question: "En el sistema de tickets, el semáforo protege principalmente:", options: ["La creación de memoria compartida", "La actualización consistente de entradas, vendidos y caja", "La llamada a `printf`", "El `sleep` entre ventas"], answer: 1, explanation: "Sin protección habría incoherencias en el estado compartido." },
+  { id: "L8Q6", lab: "Lab 8", topic: "Errores", question: "¿Qué error es clásico al usar memoria compartida?", options: ["Usar `printf` en vez de `puts`", "Olvidar `ftruncate` o usar `MAP_PRIVATE` por error", "Llamar `close` al descriptor", "Reservar una estructura demasiado pequeña en pila"], answer: 1, explanation: "Es uno de los fallos más habituales en este patrón." },
+
+  { id: "L9Q1", lab: "Lab 9", topic: "PC", question: "¿Qué controla el semáforo `empty` en productor-consumidor?", options: ["Los elementos listos para consumir", "Los huecos libres del buffer", "La exclusión mutua", "El número de productores"], answer: 1, explanation: "`empty` cuenta plazas libres en el buffer." },
+  { id: "L9Q2", lab: "Lab 9", topic: "PC", question: "¿Qué controla el semáforo `full`?", options: ["Los huecos vacíos", "Los elementos disponibles para consumir", "Los hilos activos", "Los procesos zombis"], answer: 1, explanation: "`full` cuenta cuántos elementos listos hay." },
+  { id: "L9Q3", lab: "Lab 9", topic: "PC", question: "¿Por qué no basta con `empty` y `full` sin `mutex`?", options: ["Porque `sem_post` falla sin mutex", "Porque aún hace falta proteger la sección crítica del buffer", "Porque los semáforos no sirven en C", "Porque `wait` del padre lo exige"], answer: 1, explanation: "`empty/full` modelan cantidades; `mutex` protege inserción y extracción." },
+  { id: "L9Q4", lab: "Lab 9", topic: "Busy waiting", question: "La versión con espera activa del lab es peor porque:", options: ["No puede funcionar con buffers circulares", "Consume CPU mientras espera la condición", "Impide usar procesos", "Requiere `execve`"], answer: 1, explanation: "La busy wait desperdicia tiempo de CPU consultando repetidamente el estado." },
+  { id: "L9Q5", lab: "Lab 9", topic: "Circular", question: "¿Para qué sirve `in = (in + 1) % BUFFER_SIZE`?", options: ["Para bloquear al productor", "Para recorrer el buffer de forma circular", "Para contar elementos consumidos", "Para reservar memoria dinámica"], answer: 1, explanation: "El módulo hace volver el índice al inicio cuando llega al final." },
+  { id: "L9Q6", lab: "Lab 9", topic: "Inicialización", question: "En una solución clásica, `full` debe empezar en:", options: ["`BUFFER_SIZE`", "0", "1", "-1"], answer: 1, explanation: "Al inicio no hay elementos producidos aún." },
+
+  { id: "L10Q1", lab: "Lab 10", topic: "E/S", question: "¿Qué llamada reposiciona el offset de un descriptor de fichero?", options: ["`fstat`", "`lseek`", "`mmap`", "`dup2`"], answer: 1, explanation: "`lseek` mueve el puntero de lectura/escritura del descriptor." },
+  { id: "L10Q2", lab: "Lab 10", topic: "fstat", question: "¿Qué aporta `fstat(fd, &s)` antes de `mmap`?", options: ["El PID del proceso que abrió el archivo", "El tamaño y metadatos del fichero", "El contenido en texto plano", "La tabla de símbolos"], answer: 1, explanation: "El tamaño permite saber cuánto mapear y cuántos elementos hay." },
+  { id: "L10Q3", lab: "Lab 10", topic: "mmap", question: "¿Qué ventaja práctica tiene `mmap` para ordenar un fichero de structs?", options: ["Evita por completo el uso de memoria", "Permite tratar el fichero como un array en memoria", "Convierte el fichero a texto automáticamente", "Impide errores de concurrencia"], answer: 1, explanation: "Una vez mapeado, el contenido puede manejarse con sintaxis de array." },
+  { id: "L10Q4", lab: "Lab 10", topic: "nelem", question: "¿Cómo se calcula el número de estructuras de un fichero binario mapeado?", options: ["`strlen(fichero)`", "`s.st_size / sizeof(struct evaluation)`", "`sizeof(fd) / s.st_size`", "`read(fd, ...)` hasta EOF"], answer: 1, explanation: "El tamaño total dividido por el tamaño de cada estructura da el número de elementos." },
+  { id: "L10Q5", lab: "Lab 10", topic: "Comparación", question: "Frente a `read/write`, `mmap` destaca porque:", options: ["Siempre usa menos RAM", "Reduce E/S explícita y da acceso directo tipo memoria", "No necesita `close`", "Hace las escrituras atómicas"], answer: 1, explanation: "La principal diferencia es el modelo de acceso al dato." },
+  { id: "L10Q6", lab: "Lab 10", topic: "Bajo nivel", question: "¿Cuál de estas llamadas pertenece al estilo de E/S de bajo nivel usado en el lab?", options: ["`fprintf`", "`fgets`", "`read`", "`scanf`"], answer: 2, explanation: "`read` trabaja con descriptores; las otras pertenecen a `stdio`." },
+
+  { id: "L11Q1", lab: "Lab 11", topic: "pipe", question: "Tras `pipe(fd)`, `fd[0]` se usa para:", options: ["Escribir", "Leer", "Cerrar el proceso", "Duplicar el pipe"], answer: 1, explanation: "En el esquema clásico, `fd[0]` es el extremo de lectura." },
+  { id: "L11Q2", lab: "Lab 11", topic: "pipe", question: "¿Por qué es importante cerrar los extremos de pipe no usados?", options: ["Para mejorar el color del terminal", "Para evitar fugas y permitir EOF correcto en `read`", "Porque `pipe` solo admite un `close`", "Para que `fork` no falle"], answer: 1, explanation: "Si un escritor sigue abierto donde no debe, el lector puede no ver fin de datos." },
+  { id: "L11Q3", lab: "Lab 11", topic: "EOF", question: "¿Qué significa que `read` sobre un pipe devuelva 0?", options: ["Error de compilación", "Fin de fichero: no quedan escritores activos", "Dato numérico cero", "Que el pipe está bloqueado"], answer: 1, explanation: "En pipes, 0 indica EOF." },
+  { id: "L11Q4", lab: "Lab 11", topic: "Arquitectura", question: "En `picalc_pipes`, el `dispatcher` hace principalmente:", options: ["Recoger parciales", "Enviar paquetes de trabajo", "Ejecutar `wait` en todos los hijos", "Crear la memoria compartida"], answer: 1, explanation: "El dispatcher reparte trabajo a los workers a través del pipe." },
+  { id: "L11Q5", lab: "Lab 11", topic: "Workers", question: "El `gatherer` del lab tiene como función principal:", options: ["Abrir el pipe de trabajo en escritura", "Recoger resultados parciales y agregarlos", "Crear hilos POSIX", "Lanzar `execve`"], answer: 1, explanation: "Es el proceso que consume los parciales que producen los workers." },
+  { id: "L11Q6", lab: "Lab 11", topic: "Relación", question: "Un pipe anónimo encaja mejor entre:", options: ["Procesos sin ninguna relación", "Procesos relacionados por `fork`", "Máquinas distintas", "Hilos de Java"], answer: 1, explanation: "El patrón natural es crear el pipe y luego heredar descriptores tras `fork`." },
+
+  { id: "L12Q1", lab: "Lab 12", topic: "FIFO", question: "¿Qué llamada crea una FIFO con nombre en el sistema de ficheros?", options: ["`pipe`", "`mkfifo`", "`fifo_open`", "`mknode`"], answer: 1, explanation: "`mkfifo` crea el canal con nombre." },
+  { id: "L12Q2", lab: "Lab 12", topic: "Diferencia", question: "¿Qué ventaja clave tiene una FIFO sobre un pipe anónimo?", options: ["Es bidireccional por defecto", "Puede usarse entre procesos independientes mediante un nombre", "No necesita `open`", "Comparte memoria"], answer: 1, explanation: "La presencia en el sistema de ficheros permite coordinar procesos separados." },
+  { id: "L12Q3", lab: "Lab 12", topic: "open", question: "Abrir una FIFO en escritura puede bloquear hasta que:", options: ["El fichero se compile", "Exista un lector", "Se llame a `unlink`", "Termine el padre"], answer: 1, explanation: "La sincronización de apertura es parte del comportamiento normal de FIFOs." },
+  { id: "L12Q4", lab: "Lab 12", topic: "cleanup", question: "¿Qué hace `unlink(\"work\")` al final del lab?", options: ["Cierra todos los descriptores abiertos", "Elimina el nombre de la FIFO del sistema de ficheros", "Borra los datos ya leídos del pipe", "Detiene a los workers"], answer: 1, explanation: "`unlink` limpia la FIFO nombrada del sistema de ficheros." },
+  { id: "L12Q5", lab: "Lab 12", topic: "execve", question: "En `picalc_fifos`, `fork` + `execve` se usa para:", options: ["Crear threads ligeros", "Lanzar ejecutables independientes que cooperan por FIFO", "Evitar usar `open`", "Compartir mutex entre procesos"], answer: 1, explanation: "Cada rol del pipeline puede vivir como binario independiente." },
+  { id: "L12Q6", lab: "Lab 12", topic: "Comparación", question: "Comparada con memoria compartida, una FIFO:", options: ["Transporta bytes por flujo y no comparte estructuras directamente", "Hace innecesaria la sincronización", "Nunca bloquea", "Es más adecuada para arrays grandes compartidos"], answer: 0, explanation: "FIFO comunica por flujo; memoria compartida comparte datos directos con sincronización aparte." }
+];
+
+const skeletons = [
+  {
+    title: "fork básico",
+    use: "Cuando el examen solo quiere bifurcar un proceso y distinguir padre e hijo.",
+    pitfalls: ["Olvidar comprobar `pid < 0`", "No hacer `exit(0)` en el hijo cuando el patrón lo requiere", "Confundir los valores devueltos por `fork`"],
+    code: String.raw`#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+
+int main(void) {
+    pid_t pid;
+
+    pid = fork();
+    if (pid < 0) {
+        perror("fork");
+        exit(-1);
+    }
+
+    if (pid == 0) {
+        printf("Hijo: pid=%d\n", getpid());
+        exit(0);
+    } else {
+        printf("Padre: pid=%d, hijo=%d\n", getpid(), pid);
+    }
+
+    return 0;
+}`
+  },
+  {
+    title: "fork + wait",
+    use: "Cuando el padre debe esperar la terminación del hijo y leer su estado.",
+    pitfalls: ["No usar `WIFEXITED` antes de `WEXITSTATUS`", "Olvidar `wait(&status)`", "Pensar que `wait` crea el hijo"],
+    code: String.raw`pid_t pid;
+int status;
+
+pid = fork();
+if (pid < 0) {
+    perror("fork");
+    exit(-1);
+}
+
+if (pid == 0) {
+    exit(7);
+} else {
+    wait(&status);
+    if (WIFEXITED(status)) {
+        printf("%d\n", WEXITSTATUS(status));
+    }
+}`
+  },
+  {
+    title: "fork + execve",
+    use: "Cuando el hijo debe reemplazarse por otro ejecutable.",
+    pitfalls: ["Olvidar que `execve` solo vuelve si falla", "No preparar `argv` terminado en `NULL`", "No hacer `perror` tras fallo de `execve`"],
+    code: String.raw`if (fork() == 0) {
+    char *argv[] = {"./prog", "arg1", NULL};
+    char *envp[] = {NULL};
+
+    execve("./prog", argv, envp);
+    perror("execve");
+    exit(-1);
+}
+
+wait(NULL);`
+  },
+  {
+    title: "varios hijos en bucle",
+    use: "Cuando piden crear N procesos y que el padre espere a todos.",
+    pitfalls: ["No hacer `exit(0)` en el hijo y dejarlo seguir bifurcando", "No esperar a todos", "No comprobar error en cada `fork`"],
+    code: String.raw`for (i = 0; i < n; i++) {
+    pid = fork();
+    if (pid < 0) {
+        perror("fork");
+        exit(-1);
+    }
+    if (pid == 0) {
+        printf("Soy el hijo %d\n", i);
+        exit(0);
+    }
+}
+
+for (i = 0; i < n; i++) {
+    wait(NULL);
+}`
+  },
+  {
+    title: "pthread_create + pthread_join",
+    use: "Patrón mínimo de creación y espera de un hilo POSIX.",
+    pitfalls: ["Firma incorrecta `void *func(void *arg)`", "No incluir `<pthread.h>`", "Olvidar `pthread_join`"],
+    code: String.raw`void *thread_func(void *arg) {
+    int *p = (int *)arg;
+    printf("%d\n", *p);
+    pthread_exit(NULL);
+}
+
+pthread_t th;
+int x = 5;
+pthread_create(&th, NULL, thread_func, &x);
+pthread_join(th, NULL);`
+  },
+  {
+    title: "mutex básico",
+    use: "Sección crítica sobre variable compartida entre hilos.",
+    pitfalls: ["Hacer `lock` sin `unlock`", "Proteger demasiado código", "Pensar que `counter++` es atómico"],
+    code: String.raw`pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+long counter = 0;
+
+void *thread_func(void *arg) {
+    int i;
+    for (i = 0; i < 100000; i++) {
+        pthread_mutex_lock(&mutex);
+        counter++;
+        pthread_mutex_unlock(&mutex);
+    }
+    pthread_exit(NULL);
+}`
+  },
+  {
+    title: "shm_open + ftruncate + mmap",
+    use: "Patrón base de memoria compartida POSIX entre procesos.",
+    pitfalls: ["Olvidar `ftruncate`", "Usar `MAP_PRIVATE` en vez de `MAP_SHARED`", "No comprobar `MAP_FAILED`"],
+    code: String.raw`fd = shm_open("/mi_shm", O_CREAT | O_RDWR, 0600);
+if (fd == -1) {
+    perror("shm_open");
+    exit(-1);
+}
+
+ftruncate(fd, sizeof(struct data));
+
+p = mmap(NULL, sizeof(struct data),
+         PROT_READ | PROT_WRITE,
+         MAP_SHARED, fd, 0);
+if (p == MAP_FAILED) {
+    perror("mmap");
+    exit(-1);
+}`
+  },
+  {
+    title: "pipe anónimo",
+    use: "Comunicación simple entre padre e hijo relacionados por `fork`.",
+    pitfalls: ["No cerrar extremos no usados", "Confundir `fd[0]` y `fd[1]`", "No detectar EOF con `read == 0`"],
+    code: String.raw`int fd[2];
+pipe(fd);
+
+if (fork() == 0) {
+    close(fd[1]);
+    read(fd[0], &x, sizeof(int));
+    close(fd[0]);
+    exit(0);
+} else {
+    close(fd[0]);
+    write(fd[1], &x, sizeof(int));
+    close(fd[1]);
+    wait(NULL);
+}`
+  },
+  {
+    title: "FIFO con nombre",
+    use: "Comunicación entre procesos independientes usando un nombre en el sistema de ficheros.",
+    pitfalls: ["Olvidar `mkfifo`", "No limpiar con `unlink`", "No recordar que `open` puede bloquear"],
+    code: String.raw`mkfifo("mi_fifo", 0666);
+
+fd = open("mi_fifo", O_WRONLY);
+if (fd == -1) {
+    perror("open");
+    exit(-1);
+}
+
+write(fd, &x, sizeof(int));
+close(fd);
+unlink("mi_fifo");`
+  },
+  {
+    title: "productor-consumidor con semáforos",
+    use: "Patrón clásico con `empty`, `full` y `mutex`.",
+    pitfalls: ["Inicializar mal `empty` o `full`", "Olvidar que `mutex` sigue siendo necesario", "Mezclar el orden de `wait/post`"],
+    code: String.raw`sem_wait(&empty);
+pthread_mutex_lock(&mutex);
+
+buffer[in] = item;
+in = (in + 1) % BUFFER_SIZE;
+
+pthread_mutex_unlock(&mutex);
+sem_post(&full);
+
+sem_wait(&full);
+pthread_mutex_lock(&mutex);
+
+item = buffer[out];
+out = (out + 1) % BUFFER_SIZE;
+
+pthread_mutex_unlock(&mutex);
+sem_post(&empty);`
+  },
+  {
+    title: "ejercicio resuelto de mutex",
+    use: "La versión de examen de dos hilos que incrementan un contador compartido.",
+    pitfalls: ["No explicar la condición de carrera", "Olvidar destruir el mutex", "Suponer que el resultado sale bien sin protección"],
+    code: String.raw`#define NITER 1000000
+
+long counter = 0;
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+
+void *incrementer(void *arg) {
+    int i;
+    for (i = 0; i < NITER; i++) {
+        pthread_mutex_lock(&mutex);
+        counter++;
+        pthread_mutex_unlock(&mutex);
+    }
+    pthread_exit(NULL);
+}
+
+int main(void) {
+    pthread_t th1, th2;
+
+    pthread_create(&th1, NULL, incrementer, NULL);
+    pthread_create(&th2, NULL, incrementer, NULL);
+    pthread_join(th1, NULL);
+    pthread_join(th2, NULL);
+
+    pthread_mutex_destroy(&mutex);
+    printf("%ld\n", counter);
+    return 0;
+}`
+  }
+];
+
+const examPrompts = [
+  { lab: "Lab 1", title: "Hello mínimo con compilación", difficulty: "fácil", prompt: "Escriba un programa en C que muestre `Hola SO` por pantalla. Indique además el comando de compilación y de ejecución.", target: "Estructura mínima de programa, compilación y ejecución." },
+  { lab: "Lab 1", title: "Mini Makefile básico", difficulty: "fácil", prompt: "Dado un archivo `hello.c`, escriba una regla de `Makefile` que genere un ejecutable `hello` y otra regla `clean`.", target: "Receta básica y limpieza." },
+  { lab: "Lab 2", title: "Reconstrucción con shell", difficulty: "media", prompt: "A partir de capítulos repartidos en varios directorios, construya un fichero único con todos ellos usando redirección y comodines.", target: "Globbing, `cat`, `>` y `>>`." },
+  { lab: "Lab 2", title: "Conteo fiable", difficulty: "media", prompt: "Obtenga cuántos capítulos contienen la palabra `Bilbo` usando filtros de shell. Explique por qué `uniq` solo funciona si las líneas repetidas son consecutivas.", target: "Pipes, `grep`, `cut`, `uniq`, `wc`." },
+  { lab: "Lab 3", title: "Sesión breve de gdb", difficulty: "media", prompt: "Describa la secuencia de comandos de `gdb` necesaria para poner un breakpoint en un `while`, ejecutar con argumentos y vigilar una variable `fn`.", target: "Flujo base de depuración." },
+  { lab: "Lab 3", title: "Compilación modular", difficulty: "media", prompt: "Tiene `main.c`, `factfun.c` y `factprint.c`. Escriba los comandos de compilación separada y el enlace final.", target: "Objetos `.o` y enlace." },
+  { lab: "Lab 4", title: "Padre e hijo con wait", difficulty: "media", prompt: "Escriba un programa que cree un hijo con `fork`, haga que el hijo termine con `exit(3)` y que el padre muestre el código de salida usando macros del sistema.", target: "Patrón `fork` + `wait` + macros de estado." },
+  { lab: "Lab 4", title: "Launcher con execve", difficulty: "media", prompt: "Cree un programa que haga `fork` y ejecute `./worker` en el hijo con un argumento. El padre debe esperar a que termine.", target: "Patrón `fork` + `execve`." },
+  { lab: "Lab 5", title: "Distribución de nonces", difficulty: "difícil", prompt: "Diseñe una función que reparta el intervalo de nonces entre N mineros sin dejar huecos. Explique qué ocurre si hay solapamientos.", target: "Partición de trabajo multiproceso." },
+  { lab: "Lab 5", title: "Padre supervisor", difficulty: "difícil", prompt: "Complete el esqueleto de un programa que lance varios mineros con `fork`, espere estados con `wait` y termine al resto si uno encuentra solución.", target: "Supervisión de hijos y terminación coordinada." },
+  { lab: "Lab 6", title: "Acumulador protegido", difficulty: "media", prompt: "Escriba dos hilos que sumen sobre una variable global y protéjala con `pthread_mutex_t`.", target: "Mutex y condición de carrera." },
+  { lab: "Lab 6", title: "Integración con structs", difficulty: "difícil", prompt: "Defina una `struct work` con límites de integración y puntero al acumulador compartido. Complete la función del hilo para sumar el parcial con mutex.", target: "Paso de structs a hilos y actualización protegida." },
+  { lab: "Lab 7", title: "Ctrl+C con doble confirmación", difficulty: "difícil", prompt: "Implemente el patrón en el que el primer `SIGINT` muestra estado y el segundo, dentro de 2 segundos, termina el proceso.", target: "Señales, `alarm` y estado interno." },
+  { lab: "Lab 7", title: "Handler con sigaction", difficulty: "media", prompt: "Escriba el código mínimo para instalar un handler de `SIGUSR1` con `sigaction` y `SA_SIGINFO`.", target: "Interfaz moderna de señales." },
+  { lab: "Lab 8", title: "Memoria compartida de tickets", difficulty: "difícil", prompt: "Defina una estructura compartida para un sistema de tickets con stock, vendidos, precio, caja y un semáforo. Muestre la inicialización completa.", target: "shm_open, ftruncate, mmap, sem_init." },
+  { lab: "Lab 8", title: "Vendedor seguro", difficulty: "difícil", prompt: "Complete un bucle de venta en el que varios procesos descuenten tickets de una estructura compartida sin corromper el estado.", target: "Sección crítica en memoria compartida." },
+  { lab: "Lab 9", title: "Buffer circular", difficulty: "media", prompt: "Defina las variables necesarias para un buffer circular y explique el papel de `in`, `out` y `count`.", target: "Estructura del productor-consumidor." },
+  { lab: "Lab 9", title: "Productor-consumidor completo", difficulty: "difícil", prompt: "Escriba el esquema de productor y consumidor con `empty`, `full` y `mutex`.", target: "Orden correcto de semáforos y exclusión mutua." },
+  { lab: "Lab 10", title: "Ordenación con mmap", difficulty: "difícil", prompt: "Complete una función que use `fstat`, `mmap` y `munmap` para ordenar un fichero binario de estructuras por una nota media.", target: "Mapeo de ficheros y acceso como array." },
+  { lab: "Lab 10", title: "Acceso aleatorio", difficulty: "media", prompt: "Escriba un ejemplo que use `lseek` para volver al penúltimo entero de un fichero y leerlo con `read`.", target: "Offset de fichero con E/S de bajo nivel." },
+  { lab: "Lab 11", title: "Pipe padre-hijo", difficulty: "media", prompt: "Implemente un productor padre que envíe enteros por un pipe a un hijo consumidor. Cierre correctamente los extremos.", target: "Pipe anónimo y EOF." },
+  { lab: "Lab 11", title: "Dispatcher-worker-gatherer", difficulty: "difícil", prompt: "Dibuje o codifique el esquema de procesos del calculador de pi con un pipe de trabajos y otro de resultados.", target: "Arquitectura de procesos con pipes." },
+  { lab: "Lab 12", title: "Creación y limpieza de FIFOs", difficulty: "media", prompt: "Escriba el código para crear dos FIFOs, lanzar procesos externos que las usen y limpiarlas al final.", target: "mkfifo, open, unlink, fork, execve." },
+  { lab: "Lab 12", title: "Worker por FIFO", difficulty: "difícil", prompt: "Complete un worker que abra una FIFO de trabajo en lectura, otra de resultados en escritura y procese paquetes en un bucle.", target: "Open bloqueante y flujo por FIFO." }
+];
+
+const labGuides = [
+  { lab: "Lab 1", weight: "Base", title: "Compilación C básica", summary: "Entrada suave pero útil para asegurar mínimos de compilación y ejecución.", concepts: ["`main`, `printf`, `return`", "Compilar con `cc` o `gcc`", "Ejecutar con `./binario`"], memorize: ["`cc hello.c -o hello`", "Diferencia entre fuente y ejecutable"], pitfalls: ["Olvidar `./` al ejecutar", "Confundir compilar con ejecutar"], checklist: ["Escribir un hello world de memoria", "Recordar para qué sirve `-o`"] },
+  { lab: "Lab 2", weight: "Media", title: "Shell, rutas y filtros", summary: "Mucho examen corto se apoya en dominio real de shell.", concepts: ["Rutas relativas y absolutas", "Globbing", "Pipes y redirecciones", "Filtros como `grep`, `cut`, `wc`, `sort`, `uniq`"], memorize: ["`ls -lS`, `ls -ltr`", "`cat part[23]/*.txt >> out.txt`"], pitfalls: ["`uniq` sin ordenar", "`grep -c` cuenta líneas"], checklist: ["Practicar 10 comandos sin mirar apuntes", "Poder construir pipelines simples a mano"] },
+  { lab: "Lab 3", weight: "Media", title: "make, módulos y gdb", summary: "Aquí sale depuración y estructura de compilación.", concepts: ["Compilación separada", "Dependencias en Makefile", "Breakpoints, watchpoints y `set args`"], memorize: ["Patrón `.c -> .o -> ejecutable`", "`gdb ./prog`, `break`, `run`, `watch`"], pitfalls: ["No saber cuándo recompila `make`", "No distinguir `step` y `next`"], checklist: ["Repasar overflow de Fibonacci", "Hacer una mini sesión real de gdb"] },
+  { lab: "Lab 4", weight: "Alta", title: "Procesos, fork, wait, execve", summary: "Núcleo clásico de examen de SO.", concepts: ["Valores devueltos por `fork`", "Estados recogidos con `wait`", "`execve` reemplaza el programa", "Padre e hijo no comparten variables normales"], memorize: ["Patrón `fork` básico", "Patrón `fork` + `execve` + `wait`"], pitfalls: ["No hacer `exit` en el hijo", "Usar `WEXITSTATUS` sin `WIFEXITED`"], checklist: ["Escribir dos esqueletos de procesos sin mirar", "Explicar `fork` vs `execve` en 30 segundos"] },
+  { lab: "Lab 5", weight: "Alta", title: "Multiproceso y reparto de trabajo", summary: "Amplía procesos a un caso coordinado con supervisión.", concepts: ["Reparto de rangos", "Lanzamiento de N hijos", "Supervisor padre", "`kill(SIGTERM)` para cortar al resto"], memorize: ["Estados posibles: éxito, sin solución, error", "Riesgo de solapes y huecos"], pitfalls: ["No distinguir final normal de crash", "No matar a otros mineros al encontrar solución"], checklist: ["Repasar un pseudocódigo de supervisor", "Poder justificar cómo dividir el trabajo"] },
+  { lab: "Lab 6", weight: "Alta", title: "Hilos POSIX y mutex", summary: "Muy preguntable si el examen mezcla structs y sincronización.", concepts: ["`pthread_create`, `pthread_join`", "Memoria compartida entre hilos", "Mutex como exclusión mutua", "Condición de carrera"], memorize: ["Firma `void *func(void *arg)`", "Bloque `lock / sección crítica / unlock`"], pitfalls: ["Pensar que `counter++` es atómico", "Pasar mal estructuras a los hilos"], checklist: ["Hacer un ejercicio de contador con mutex", "Recordar `-pthread`"] },
+  { lab: "Lab 7", weight: "Alta", title: "Señales y asincronía", summary: "Tema conceptual con trampas de orden y handlers.", concepts: ["`SIGINT`, `SIGUSR1`, `SIGALRM`", "`signal` vs `sigaction`", "Estado interrumpido de forma asíncrona"], memorize: ["Patrón `alarm(2)`", "Handler de estado con `SIGUSR1`"], pitfalls: ["Hacer demasiado dentro del handler", "Olvidar que `SIGKILL` no se captura"], checklist: ["Repasar doble Ctrl+C", "Saber instalar un handler con `sigaction`"] },
+  { lab: "Lab 8", weight: "Alta", title: "Memoria compartida POSIX", summary: "Muy frecuente en examen si hay structs y sincronización interproceso.", concepts: ["`shm_open`", "`ftruncate`", "`mmap` con `MAP_SHARED`", "Semáforos compartidos entre procesos"], memorize: ["Secuencia completa de inicialización", "`sem_init(..., 1, ...)`"], pitfalls: ["Usar `MAP_PRIVATE`", "Olvidar el tamaño con `ftruncate`"], checklist: ["Escribir la estructura de tickets", "Explicar qué se comparte realmente"] },
+  { lab: "Lab 9", weight: "Alta", title: "Productor-consumidor", summary: "Patrón de manual que exige orden exacto.", concepts: ["Buffer circular", "`empty`, `full`, `mutex`", "Busy waiting vs bloqueo"], memorize: ["Inicializaciones: `empty=BUFFER_SIZE`, `full=0`", "Esqueleto de productor y consumidor"], pitfalls: ["Olvidar `mutex`", "Intercambiar el orden de semáforos"], checklist: ["Escribir el patrón completo en papel", "Justificar cada semáforo"] },
+  { lab: "Lab 10", weight: "Alta", title: "Ficheros binarios y mmap", summary: "Mezcla E/S de bajo nivel con acceso tipo memoria.", concepts: ["`open`, `read`, `write`, `lseek`", "`fstat`", "`mmap` y `munmap`"], memorize: ["Calcular `nelem` con `sizeof`", "Saber cuándo usar `lseek`"], pitfalls: ["Confundir `stdio` con E/S de bajo nivel", "Mapear un tamaño incorrecto"], checklist: ["Repasar `gradesort_mmap`", "Poder escribir un acceso aleatorio con `lseek`"] },
+  { lab: "Lab 11", weight: "Alta", title: "Pipes anónimos", summary: "IPC entre procesos relacionados con mucha trampa de cierre de descriptores.", concepts: ["`pipe(fd)`", "`fd[0]` lectura / `fd[1]` escritura", "EOF con `read == 0`", "Cerrar extremos no usados"], memorize: ["Patrón padre escritor / hijo lector", "Razón de cerrar descriptores"], pitfalls: ["Dejar un escritor abierto y no ver EOF", "Cruzar lectura y escritura"], checklist: ["Repasar dispatcher-worker-gatherer", "Escribir un pipe mínimo de memoria"] },
+  { lab: "Lab 12", weight: "Alta", title: "FIFOs y ejecutables separados", summary: "Último paso: IPC con nombre entre programas distintos.", concepts: ["`mkfifo`", "`open` bloqueante", "`unlink` de limpieza", "`fork` + `execve` para lanzar roles"], memorize: ["Diferencia pipe vs FIFO", "Secuencia crear, abrir, usar, limpiar"], pitfalls: ["Olvidar que `open` puede bloquear", "No borrar la FIFO al final"], checklist: ["Repasar el arranque de dispatcher, workers y gatherer", "Poder codificar una FIFO básica"] }
+];
+
+const rapidReview = [
+  { title: "Procesos vs Hilos", body: "Proceso: espacio de memoria separado, buen aislamiento. Hilo: comparte globales, heap y descriptores; necesita sincronización fina." },
+  { title: "fork vs execve", body: "`fork` clona el proceso. `execve` sustituye el programa actual. Juntos forman el patrón canónico para lanzar otro ejecutable." },
+  { title: "Pipe vs FIFO vs Memoria Compartida", body: "Pipe: flujo de bytes entre relacionados. FIFO: igual pero con nombre. Memoria compartida: datos directos compartidos, siempre con sincronización aparte." },
+  { title: "Mutex vs Semáforo", body: "Mutex: exclusión mutua sobre una sección crítica. Semáforo: contador de recursos o eventos; puede modelar vacíos, llenos, turnos y más." },
+  { title: "Busy Waiting vs Bloqueo", body: "La espera activa consulta en bucle y quema CPU. El bloqueo con semáforos duerme hasta que el recurso está disponible." },
+  { title: "read/write vs mmap", body: "`read/write` da control explícito de la E/S. `mmap` trata el fichero como memoria y simplifica accesos aleatorios." }
+];
+
+function createTag(text, alt = false) {
+  const span = document.createElement("span");
+  span.className = alt ? "tag alt" : "tag";
+  span.textContent = text;
+  return span;
+}
+
+function renderQuiz(filter = "all") {
+  const container = document.getElementById("quiz-list");
+  container.innerHTML = "";
+  const filtered = filter === "all" ? quizQuestions : quizQuestions.filter((q) => q.lab === filter);
+
+  filtered.forEach((item) => {
+    const card = document.createElement("article");
+    card.className = "quiz-card";
+    card.dataset.lab = item.lab;
+    card.dataset.id = item.id;
+
+    const meta = document.createElement("div");
+    meta.className = "quiz-meta";
+    meta.append(createTag(item.lab));
+    meta.append(createTag(item.topic, true));
+    card.append(meta);
+
+    const title = document.createElement("h3");
+    title.textContent = item.question;
+    card.append(title);
+
+    const options = document.createElement("div");
+    options.className = "option-list";
+    item.options.forEach((optionText, index) => {
+      const label = document.createElement("label");
+      label.className = "option-item";
+
+      const radio = document.createElement("input");
+      radio.type = "radio";
+      radio.name = item.id;
+      radio.value = index;
+      radio.addEventListener("change", updateProgress);
+
+      const text = document.createElement("span");
+      text.textContent = optionText;
+
+      label.append(radio, text);
+      options.append(label);
+    });
+
+    card.append(options);
+
+    const explanation = document.createElement("div");
+    explanation.className = "explanation hidden";
+    explanation.textContent = item.explanation;
+    card.append(explanation);
+
+    container.append(card);
+  });
+
+  updateProgress();
+}
+
+function renderSkeletons() {
+  const container = document.getElementById("skeleton-grid");
+  skeletons.forEach((item, index) => {
+    const wrapper = document.createElement("article");
+    wrapper.className = "accordion-item";
+
+    const button = document.createElement("button");
+    button.className = "accordion-header";
+    button.type = "button";
+    button.setAttribute("aria-expanded", index === 0 ? "true" : "false");
+    button.innerHTML = `<div><h3>${item.title}</h3><span>${item.use}</span></div><strong>${index === 0 ? "−" : "+"}</strong>`;
+
+    const content = document.createElement("div");
+    content.className = "accordion-content";
+    if (index !== 0) {
+      content.hidden = true;
+    }
+
+    const pitfallsTitle = document.createElement("p");
+    pitfallsTitle.innerHTML = "<strong>Errores típicos</strong>";
+    content.append(pitfallsTitle);
+
+    const ul = document.createElement("ul");
+    item.pitfalls.forEach((pitfall) => {
+      const li = document.createElement("li");
+      li.textContent = pitfall;
+      ul.append(li);
+    });
+    content.append(ul);
+
+    const pre = document.createElement("pre");
+    const code = document.createElement("code");
+    code.textContent = item.code;
+    pre.append(code);
+    content.append(pre);
+
+    button.addEventListener("click", () => {
+      const expanded = button.getAttribute("aria-expanded") === "true";
+      button.setAttribute("aria-expanded", String(!expanded));
+      button.querySelector("strong").textContent = expanded ? "+" : "−";
+      content.hidden = expanded;
+    });
+
+    wrapper.append(button, content);
+    container.append(wrapper);
+  });
+}
+
+function renderPrompts() {
+  const container = document.getElementById("prompt-grid");
+  examPrompts.forEach((item) => {
+    const card = document.createElement("article");
+    card.className = "prompt-card";
+    const meta = document.createElement("div");
+    meta.className = "quiz-meta";
+    meta.append(createTag(item.lab));
+    meta.append(createTag(item.difficulty, true));
+    card.append(meta);
+
+    const h3 = document.createElement("h3");
+    h3.textContent = item.title;
+    card.append(h3);
+
+    const p = document.createElement("p");
+    p.textContent = item.prompt;
+    card.append(p);
+
+    const footer = document.createElement("footer");
+    footer.innerHTML = `<strong>Qué evalúa:</strong> ${item.target}`;
+    card.append(footer);
+    container.append(card);
+  });
+}
+
+function renderLabs() {
+  const container = document.getElementById("lab-guide");
+  labGuides.forEach((item) => {
+    const card = document.createElement("article");
+    card.className = "lab-card";
+
+    const meta = document.createElement("div");
+    meta.className = "lab-meta";
+    meta.append(createTag(item.lab));
+    meta.append(createTag(item.weight, true));
+    card.append(meta);
+
+    const h3 = document.createElement("h3");
+    h3.textContent = item.title;
+    card.append(h3);
+
+    const summary = document.createElement("p");
+    summary.textContent = item.summary;
+    card.append(summary);
+
+    const blocks = [
+      ["Conceptos clave", item.concepts],
+      ["Qué memorizar", item.memorize],
+      ["Errores típicos", item.pitfalls],
+      ["Checklist", item.checklist]
+    ];
+
+    blocks.forEach(([label, values]) => {
+      const title = document.createElement("p");
+      title.innerHTML = `<strong>${label}</strong>`;
+      title.style.marginTop = "16px";
+      card.append(title);
+
+      const ul = document.createElement("ul");
+      values.forEach((value) => {
+        const li = document.createElement("li");
+        li.textContent = value;
+        ul.append(li);
+      });
+      card.append(ul);
+    });
+
+    container.append(card);
+  });
+}
+
+function renderRapidReview() {
+  const container = document.getElementById("comparison-grid");
+  rapidReview.forEach((item) => {
+    const card = document.createElement("article");
+    card.className = "comparison-card";
+    const h3 = document.createElement("h3");
+    h3.textContent = item.title;
+    const p = document.createElement("p");
+    p.textContent = item.body;
+    card.append(h3, p);
+    container.append(card);
+  });
+}
+
+function populateFilter() {
+  const select = document.getElementById("quiz-filter");
+  [...new Set(quizQuestions.map((q) => q.lab))].forEach((lab) => {
+    const option = document.createElement("option");
+    option.value = lab;
+    option.textContent = lab;
+    select.append(option);
+  });
+}
+
+function updateProgress() {
+  const visibleCards = [...document.querySelectorAll(".quiz-card")];
+  const answered = visibleCards.filter((card) => card.querySelector("input:checked")).length;
+  const totalVisible = visibleCards.length;
+  const totalAll = quizQuestions.length;
+  document.getElementById("answered-count").textContent = `${answered} / ${totalVisible}`;
+  document.getElementById("progress-text").textContent = answered;
+  document.getElementById("progress-fill").style.width = `${(answered / Math.max(totalVisible, 1)) * 100}%`;
+  document.getElementById("hero-questions").textContent = totalAll;
+  document.getElementById("hero-skeletons").textContent = skeletons.length;
+  document.getElementById("hero-prompts").textContent = examPrompts.length;
+}
+
+function scoreQuiz() {
+  const cards = [...document.querySelectorAll(".quiz-card")];
+  let correct = 0;
+
+  cards.forEach((card) => {
+    const item = quizQuestions.find((q) => q.id === card.dataset.id);
+    const selected = card.querySelector("input:checked");
+    const explanation = card.querySelector(".explanation");
+    const options = [...card.querySelectorAll(".option-item")];
+
+    card.classList.remove("correct", "incorrect");
+    options.forEach((option) => option.classList.remove("correct-option", "wrong-option"));
+
+    if (!selected) {
+      explanation.classList.remove("hidden");
+      return;
+    }
+
+    const selectedIndex = Number(selected.value);
+    if (selectedIndex === item.answer) {
+      correct++;
+      card.classList.add("correct");
+    } else {
+      card.classList.add("incorrect");
+    }
+
+    options[item.answer].classList.add("correct-option");
+    if (selectedIndex !== item.answer) {
+      options[selectedIndex].classList.add("wrong-option");
+    }
+
+    explanation.classList.remove("hidden");
+  });
+
+  const total = cards.length;
+  const scoreText = `${correct} / ${total}`;
+  document.getElementById("score-count").textContent = scoreText;
+
+  const banner = document.getElementById("quiz-results");
+  banner.classList.remove("hidden", "bad");
+  if (correct / Math.max(total, 1) < 0.65) {
+    banner.classList.add("bad");
+  }
+  banner.innerHTML = `<strong>Resultado:</strong> ${scoreText}. ${correct / Math.max(total, 1) >= 0.8 ? "Nivel sólido." : correct / Math.max(total, 1) >= 0.65 ? "Aprobado razonable, pero repasa tus zonas flojas." : "Necesitas otra pasada seria por los labs con más fallos."}`;
+}
+
+function resetQuiz() {
+  document.querySelectorAll(".quiz-card input").forEach((input) => {
+    input.checked = false;
+  });
+  document.querySelectorAll(".quiz-card").forEach((card) => {
+    card.classList.remove("correct", "incorrect");
+    card.querySelectorAll(".option-item").forEach((opt) => opt.classList.remove("correct-option", "wrong-option"));
+    card.querySelector(".explanation").classList.add("hidden");
+  });
+  const banner = document.getElementById("quiz-results");
+  banner.classList.add("hidden");
+  banner.classList.remove("bad");
+  document.getElementById("score-count").textContent = "Pendiente";
+  updateProgress();
+}
+
+function wireEvents() {
+  const filter = document.getElementById("quiz-filter");
+  filter.addEventListener("change", (event) => {
+    renderQuiz(event.target.value);
+    document.getElementById("score-count").textContent = "Pendiente";
+    document.getElementById("quiz-results").classList.add("hidden");
+  });
+
+  document.getElementById("submit-quiz").addEventListener("click", scoreQuiz);
+  document.getElementById("reset-quiz").addEventListener("click", resetQuiz);
+}
+
+function init() {
+  populateFilter();
+  renderQuiz();
+  renderSkeletons();
+  renderPrompts();
+  renderLabs();
+  renderRapidReview();
+  wireEvents();
+}
+
+init();
+
+</script>
+</body>
+</html>
